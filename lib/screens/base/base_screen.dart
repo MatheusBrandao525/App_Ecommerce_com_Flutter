@@ -1,26 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:lojavirtual/common/custom_dawer/custom_drawer.dart';
+import 'package:lojavirtual/models/page_manager.dart';
+import 'package:lojavirtual/screens/login/login_screen.dart';
+import 'package:provider/provider.dart';
 
 class BaseScreen extends StatelessWidget {
   final PageController pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
-    return PageView(
-        controller: pageController,
-        physics: const NeverScrollableScrollPhysics(),
-        children: <Widget>[
-          Scaffold(
-            drawer: CustomDrawer(),
-            appBar: AppBar(
-              title: const Text('Home'),
+    return Provider(
+      create: (_) => PageManager(pageController),
+      child: PageView(
+          controller: pageController,
+          physics: const NeverScrollableScrollPhysics(),
+          children: <Widget>[
+            LoginScreen(),
+            Scaffold(
+              drawer: CustomDrawer(),
+              appBar: AppBar(
+                backgroundColor: const Color.fromARGB(255, 8, 108, 122),
+                title: const Text('Home2'),
+              ),
             ),
-          ),
-          Container(color: Colors.red),
-          Container(color: Colors.amber),
-          Container(
-            color: Colors.green,
-          ),
-        ]);
+            Scaffold(
+              drawer: CustomDrawer(),
+              appBar: AppBar(
+                backgroundColor: const Color.fromARGB(255, 8, 108, 122),
+                title: const Text('Home3'),
+              ),
+            ),
+            Scaffold(
+              drawer: CustomDrawer(),
+              appBar: AppBar(
+                backgroundColor: const Color.fromARGB(255, 8, 108, 122),
+                title: const Text('Home4'),
+              ),
+            ),
+            Container(color: Colors.red),
+            Container(color: Colors.amber),
+            Container(
+              color: Colors.green,
+            ),
+          ]),
+    );
   }
 }

@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:lojavirtual/screens/base/base_screen.dart';
 
-void main() async {
-  runApp(const MyApp());
+void main() {
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Loja do Matheus',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+          primaryColor: const Color.fromARGB(255, 8, 108, 122),
+          scaffoldBackgroundColor: const Color.fromARGB(255, 8, 108, 122),
+          appBarTheme: const AppBarTheme(elevation: 0)),
       home: BaseScreen(),
     );
   }
