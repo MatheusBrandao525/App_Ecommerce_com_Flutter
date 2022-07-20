@@ -1,5 +1,9 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:lojavirtual/helpers/validators.dart';
+import 'package:lojavirtual/models/user.dart' as u;
+import 'package:lojavirtual/models/user_manger.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -61,8 +65,17 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(
                   height: 44,
                   child: RaisedButton(
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {}
+                    onPressed: () async {
+                      if (formKey.currentState!.validate()) {
+                        WidgetsFlutterBinding.ensureInitialized();
+                        await Firebase.initializeApp();
+                        context.read<UserManager>().sigIn(
+                              u.User(
+                                email: emailController.text,
+                                senha: passController.text,
+                              ),
+                            );
+                      }
                     },
                     color: Theme.of(context).primaryColor,
                     textColor: Colors.white,
