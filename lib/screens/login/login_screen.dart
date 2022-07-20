@@ -9,10 +9,12 @@ class LoginScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         title: const Text('Entrar'),
         centerTitle: true,
@@ -70,11 +72,21 @@ class LoginScreen extends StatelessWidget {
                         WidgetsFlutterBinding.ensureInitialized();
                         await Firebase.initializeApp();
                         context.read<UserManager>().sigIn(
-                              u.User(
-                                email: emailController.text,
-                                senha: passController.text,
-                              ),
-                            );
+                            user: u.User(
+                              email: emailController.text,
+                              senha: passController.text,
+                            ),
+                            onFail: (e) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text("Falha ao entrar: $e"),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            },
+                            onSuccess: () {
+                              // TODO: FECHAR A TELA DE LOGIN
+                            });
                       }
                     },
                     color: Theme.of(context).primaryColor,
