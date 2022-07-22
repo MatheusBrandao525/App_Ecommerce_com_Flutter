@@ -21,8 +21,6 @@ class UserManager extends ChangeNotifier {
       final UserCredential userCredential = await auth
           .signInWithEmailAndPassword(email: user.email, password: user.senha);
 
-      await Future.delayed(Duration(seconds: 4));
-
       onSuccess();
     } on FirebaseAuthException catch (e) {
       onFail(getErrorString(e.code));
@@ -32,5 +30,6 @@ class UserManager extends ChangeNotifier {
 
   void setLoading(bool value) {
     loading = value;
+    notifyListeners();
   }
 }
