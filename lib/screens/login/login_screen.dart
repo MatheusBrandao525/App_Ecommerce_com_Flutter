@@ -19,6 +19,17 @@ class LoginScreen extends StatelessWidget {
         title: const Text('Entrar'),
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 8, 108, 122),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pushReplacementNamed('/signup');
+            },
+            child: const Text(
+              'Criar conta',
+              style: TextStyle(fontSize: 18, color: Colors.white),
+            ),
+          ),
+        ],
       ),
       body: Center(
         child: Card(
@@ -66,12 +77,12 @@ class LoginScreen extends StatelessWidget {
                       child: RaisedButton(
                         onPressed: userManager.loading
                             ? null
-                            : () {
+                            : () async {
                                 if (formKey.currentState!.validate()) {
                                   WidgetsFlutterBinding.ensureInitialized();
-                                  await Firebase.initializeApp(); 
+                                  await Firebase.initializeApp();
                                   userManager.sigIn(
-                                      user: u.User(
+                                      user: u.UserModel(
                                         email: emailController.text,
                                         senha: passController.text,
                                       ),

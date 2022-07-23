@@ -1,5 +1,5 @@
-class User {
-  User({required this.email, required this.senha});
+class UserModel {
+  UserModel({required this.email, required this.senha});
 
   late String email;
   late String senha;

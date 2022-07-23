@@ -24,21 +24,21 @@ class _BaseScreenState extends State<BaseScreen> {
           children: <Widget>[
             LoginScreen(),
             Scaffold(
-              drawer: CustomDrawer(),
+              drawer: const CustomDrawer(),
               appBar: AppBar(
                 backgroundColor: const Color.fromARGB(255, 8, 108, 122),
                 title: const Text('Home2'),
               ),
             ),
             Scaffold(
-              drawer: CustomDrawer(),
+              drawer: const CustomDrawer(),
               appBar: AppBar(
                 backgroundColor: const Color.fromARGB(255, 8, 108, 122),
                 title: const Text('Home3'),
               ),
             ),
             Scaffold(
-              drawer: CustomDrawer(),
+              drawer: const CustomDrawer(),
               appBar: AppBar(
                 backgroundColor: const Color.fromARGB(255, 8, 108, 122),
                 title: const Text('Home4'),

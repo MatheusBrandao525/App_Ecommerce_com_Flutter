@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:lojavirtual/common/custom_dawer/drawer_tile.dart';
 
 class CustomDrawer extends StatelessWidget {
+  const CustomDrawer({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
-        children: <Widget>[
+        children: const <Widget>[
           DrawerTile(
             iconData: Icons.home,
             title: 'Inicio',

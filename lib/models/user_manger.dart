@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lojavirtual/helpers/firebase_erros.dart';
-import 'package:lojavirtual/models/user.dart' as u;
-import 'package:flutter/services.dart';
+import 'package:lojavirtual/models/user.dart';
 
 class UserManager extends ChangeNotifier {
   userManager() {
@@ -12,13 +12,13 @@ class UserManager extends ChangeNotifier {
 
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  late u.User user;
+  late UserModel user;
 
   bool _loading = false;
   bool get loading => _loading;
 
   Future<void> sigIn(
-      {required u.User user,
+      {required UserModel user,
       required Function onFail,
       required Function onSuccess}) async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +29,10 @@ class UserManager extends ChangeNotifier {
       final UserCredential userCredential = await auth
           .signInWithEmailAndPassword(email: user.email, password: user.senha);
 
-      this.user = userCredential.user as u.User; // bug aqui
+      if (user.email != null && user.senha != null) {
+        User? user = userCredential.user;
+      }
+// bug aqui
 
       onSuccess();
     } on FirebaseAuthException catch (e) {
@@ -44,9 +47,9 @@ class UserManager extends ChangeNotifier {
   }
 
   void _loadCurrentUser() async {
-    final u.User currentUser = auth.currentUser as u.User;
-    if (currentUser != null) {
-      user = currentUser as u.User;
+    final UserModel currentUser = auth.currentUser as UserModel;
+    user = currentUser;
+    if (kDebugMode) {
       print(user.uid);
     }
     notifyListeners();
