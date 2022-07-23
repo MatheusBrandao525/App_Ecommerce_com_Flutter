@@ -68,8 +68,8 @@ class LoginScreen extends StatelessWidget {
                             ? null
                             : () {
                                 if (formKey.currentState!.validate()) {
-/*                                   WidgetsFlutterBinding.ensureInitialized();
-                                  await Firebase.initializeApp(); */
+                                  WidgetsFlutterBinding.ensureInitialized();
+                                  await Firebase.initializeApp(); 
                                   userManager.sigIn(
                                       user: u.User(
                                         email: emailController.text,
