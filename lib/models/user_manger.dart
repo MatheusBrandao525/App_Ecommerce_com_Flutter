@@ -6,9 +6,16 @@ import 'package:lojavirtual/models/user.dart' as u;
 import 'package:flutter/services.dart';
 
 class UserManager extends ChangeNotifier {
+  userManager() {
+    _loadCurrentUser();
+  }
+
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  bool loading = false;
+  late u.User user;
+
+  bool _loading = false;
+  bool get loading => _loading;
 
   Future<void> sigIn(
       {required u.User user,
@@ -16,20 +23,32 @@ class UserManager extends ChangeNotifier {
       required Function onSuccess}) async {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
-    setLoading(true);
+    loading = true;
     try {
+      // ignore: unused_local_variable
       final UserCredential userCredential = await auth
           .signInWithEmailAndPassword(email: user.email, password: user.senha);
+
+      this.user = userCredential.user as u.User; // bug aqui
 
       onSuccess();
     } on FirebaseAuthException catch (e) {
       onFail(getErrorString(e.code));
     }
-    setLoading(false);
+    loading = false;
   }
 
-  void setLoading(bool value) {
-    loading = value;
+  set loading(bool value) {
+    _loading = value;
+    notifyListeners();
+  }
+
+  void _loadCurrentUser() async {
+    final u.User currentUser = auth.currentUser as u.User;
+    if (currentUser != null) {
+      user = currentUser as u.User;
+      print(user.uid);
+    }
     notifyListeners();
   }
 }

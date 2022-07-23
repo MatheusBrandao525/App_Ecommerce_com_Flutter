@@ -3,4 +3,6 @@ class User {
 
   late String email;
   late String senha;
+
+  Object? get uid => null;
 }
