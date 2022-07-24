@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:lojavirtual/helpers/validators.dart';
-import 'package:lojavirtual/models/user.dart' as u;
+import 'package:lojavirtual/models/user.dart';
 import 'package:lojavirtual/models/user_manger.dart';
 import 'package:provider/provider.dart';
 
@@ -82,7 +82,8 @@ class LoginScreen extends StatelessWidget {
                                   WidgetsFlutterBinding.ensureInitialized();
                                   await Firebase.initializeApp();
                                   userManager.sigIn(
-                                      user: u.UserModel(
+                                      user: UserModel(
+                                        name: '',
                                         email: emailController.text,
                                         senha: passController.text,
                                       ),
