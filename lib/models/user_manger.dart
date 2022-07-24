@@ -32,7 +32,27 @@ class UserManager extends ChangeNotifier {
       if (user.email != null && user.senha != null) {
         User? user = userCredential.user;
       }
-// bug aqui
+
+      onSuccess();
+    } on FirebaseAuthException catch (e) {
+      onFail(getErrorString(e.code));
+    }
+    loading = false;
+  }
+
+  Future<void> signUp(
+      {required UserModel user,
+      required Function onFail,
+      required Function onSuccess}) async {
+    loading = true;
+    try {
+      final UserCredential userCredential =
+          await auth.createUserWithEmailAndPassword(
+              email: user.email, password: user.senha);
+
+      if (user.email != null && user.senha != null) {
+        User? user = userCredential.user;
+      }
 
       onSuccess();
     } on FirebaseAuthException catch (e) {

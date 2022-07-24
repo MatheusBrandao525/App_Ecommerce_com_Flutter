@@ -1,11 +1,14 @@
 class UserModel {
-  UserModel({required this.email, required this.senha, required this.name});
+  UserModel(
+      {required this.email,
+      required this.senha,
+      required this.name,
+      required String confirmPassword});
+  String name = '';
+  String email = '';
+  String senha = '';
 
-  late String name;
-  late String email;
-  late String senha;
-
-  late String confirmPassword;
+  String confirmPassword = '';
 
   Object? get uid => null;
 }

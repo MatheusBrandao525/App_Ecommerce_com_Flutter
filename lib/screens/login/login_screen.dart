@@ -86,6 +86,7 @@ class LoginScreen extends StatelessWidget {
                                         name: '',
                                         email: emailController.text,
                                         senha: passController.text,
+                                        confirmPassword: '',
                                       ),
                                       onFail: (e) {
                                         ScaffoldMessenger.of(context)
