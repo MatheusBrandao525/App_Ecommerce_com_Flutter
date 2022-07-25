@@ -29,7 +29,7 @@ class UserManager extends ChangeNotifier {
       final UserCredential userCredential = await auth
           .signInWithEmailAndPassword(email: user.email, password: user.senha);
 
-      if (user.email != null && user.senha != null) {
+      if (user.senha != null) {
         User? user = userCredential.user;
       }
 
@@ -66,11 +66,10 @@ class UserManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _loadCurrentUser() async {
-    final UserModel currentUser = auth.currentUser as UserModel;
-    user = currentUser;
-    if (kDebugMode) {
-      print(user.uid);
+  void _loadCurrentUser() {
+    final User? currentUser = auth.currentUser;
+    if (currentUser != null) {
+      user = currentUser as UserModel;
     }
     notifyListeners();
   }

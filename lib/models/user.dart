@@ -12,21 +12,3 @@ class UserModel {
 
   Object? get uid => null;
 }
-
-
-// bugs a serem resolvidos!
-/*
-
-════════ Exception caught by gesture ═══════════════════════════════════════════
-The following LateError was thrown while handling a gesture:
-LateInitializationError: Field 'confirmPassword' has not been initialized.
-
-
-════════ Exception caught by gesture ═══════════════════════════════════════════
-LateInitializationError: Field 'confirmPassword' has not been initialized.
-════════════════════════════════════════════════════════════════════════════════
-
-════════ Exception caught by gesture ═══════════════════════════════════════════
-LateInitializationError: Field 'confirmPassword' has not been initialized.
-
-*/

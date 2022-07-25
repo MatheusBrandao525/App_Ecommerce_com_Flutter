@@ -73,7 +73,7 @@ class SignupScreen extends StatelessWidget {
                     obscureText: true,
                     validator: (pass) {
                       if (pass!.isEmpty || pass.length < 6) {
-                        return 'Senha invalida!';
+                        return 'Senha muito curta';
                       }
                       return null;
                     },
@@ -82,14 +82,15 @@ class SignupScreen extends StatelessWidget {
                     height: 16,
                   ),
                   TextFormField(
-                    controller: passController,
+                    controller: confirmPassController,
                     enabled: !userManager.loading,
-                    decoration: const InputDecoration(hintText: 'Senha'),
+                    decoration:
+                        const InputDecoration(hintText: 'Confirme sua senha'),
                     autocorrect: false,
                     obscureText: true,
                     validator: (pass) {
-                      if (user.senha != user.confirmPassword) {
-                        return 'Senhas não coicidem';
+                      if (pass!.isEmpty || pass.length < 6) {
+                        return 'Senha muito curta';
                       }
                       return null;
                     },
@@ -114,14 +115,19 @@ class SignupScreen extends StatelessWidget {
                                     confirmPassword: confirmPassController.text,
                                   ),
                                   onFail: (e) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text("Falha ao entrar: $e"),
-                                        backgroundColor: Colors.red,
-                                      ),
-                                    );
+                                    if (user.senha != user.confirmPassword) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content:
+                                              Text("Falha ao criar conta: $e"),
+                                          backgroundColor: Colors.red,
+                                        ),
+                                      );
+                                    }
                                   },
                                   onSuccess: () {
+                                    debugPrint('Sucesso!');
                                     // TODO: POP
                                   },
                                 );
@@ -139,10 +145,6 @@ class SignupScreen extends StatelessWidget {
                               'Criar Conta',
                               style: TextStyle(fontSize: 18),
                             ),
-/*                       child: const Text(
-                        'Criar Conta',
-                        style: TextStyle(fontSize: 18),
-                      ), */
                     ),
                   ),
                 ],
